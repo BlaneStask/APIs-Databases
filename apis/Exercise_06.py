@@ -15,3 +15,20 @@ It is your responsibility to build out the application to handle all menu option
 
 
 '''
+#7
+import requests
+
+base_url = "http://demo.codingnomads.co:8080/tasks_api/users"
+
+na_first_name = input("To create a new account, Enter your first name: ")
+na_last_name = input("Enter your last name: ")
+na_email = input("Enter your email: ")
+
+user = {
+    "first_name": na_first_name,
+    "last_name": na_last_name,
+    "email": na_email
+}
+
+response = requests.post(base_url, json=user)
+print(response)
