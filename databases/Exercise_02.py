@@ -14,3 +14,20 @@ Using sqlalchemy which the necessary code to:
 - Using on of the statements above, add a ORDER BY
 
 '''
+import sqlalchemy
+from pprint import pprint
+
+engine = sqlalchemy.create_engine('mysql+pymysql://root:mydogisachub9336@localhost/sakila')
+connection = engine.connect()
+metadata = sqlalchemy.MetaData()
+
+query = sqlalchemy.select([actor]).where(actor.columns.first_name == 'Harry')
+query1 = sqlalchemy.select([actor]).where(actor.columns.first_name.in_(["Harry", "film"]))
+query2 = sqlalchemy.select([actor]).where(actor.columns.first_name.in_(["comedy"]))
+query3 = sqlalchemy.select([actor]).group_by(sqlalchemy.asc.(film.columns.actor))
+query4 = sqlalchemy.select([actor]).order_by(sqlalchemy.asc.(film.columns.actor))
+pprint(query)
+pprint(query1)
+pprint(query2)
+pprint(query3)
+pprint(query4)
