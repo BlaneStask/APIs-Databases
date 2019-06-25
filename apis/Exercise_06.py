@@ -11,7 +11,7 @@ Please select from the following options (enter the number of the action you'd l
 6) Update an existing task (PATCH/PUT)
 7) Delete a task (DELETE)
 
-It is your responsibility to build out the application to handle all menu options above.
+
 
 
 '''
