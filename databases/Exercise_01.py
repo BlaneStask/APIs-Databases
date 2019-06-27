@@ -8,7 +8,7 @@ Using the dvdrental schema, write the necessary code to print information about 
 import sqlalchemy
 from pprint import pprint
 
-engine = sqlalchemy.create_engine('mysql+pymysql://root:mydogisachub9336@localhost/sakila')
+engine = sqlalchemy.create_engine('mysql+pymysql://root:mydogisachub933@localhost/sakila')
 connection = engine.connect()
 metadata = sqlalchemy.MetaData()
 
