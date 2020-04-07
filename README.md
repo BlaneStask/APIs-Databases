@@ -7,12 +7,12 @@ This is the Section I work on using APIs to access information from databases, a
 
 For the API labs:
 
-```
+```python
 import requests
 ```
 
 For the Database Labs:
 
-```
+```python
 import sqlalchemy
 ```
