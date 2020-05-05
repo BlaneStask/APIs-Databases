@@ -1,4 +1,4 @@
-# Python APIs and Databases
+# APIs and Databases
 
 This is the Section I work on using APIs to access information from databases, as well as making my own databases.
 
