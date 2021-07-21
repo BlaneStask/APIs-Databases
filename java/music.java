@@ -1,12 +1,20 @@
 package mdbase;
 import java.sql.*;
 
+/**
+* <h1>Music Titles and Rewards Database</h1>
+*
+* @author  Blane Staskiewicz
+*/
 public class music{ 
-	//database URL    
+	// database URL    
 	static final String DATABASE_URL = "jdbc:mysql://localhost:3306/music";
 	
-	/** This method is the main/driver method
-	 */
+	/** 
+	* This method is the main/driver method
+	*
+	* @param args  Unused
+	*/
 	public static void main(String[] args) {
 		Connection connection = null;      
 		Statement statement = null;      
@@ -15,7 +23,7 @@ public class music{
 		try {    
 			connection = DriverManager.getConnection(DATABASE_URL, "username", "password");
 			
-			//creating tables
+			// create tables
 			PreparedStatement create = connection.prepareStatement("CREATE TABLE IF NOT EXISTS musicTitles("
 					+ "musicID INT NOT NULL, "
 					+ "genre varchar (20) NOT NULL,"
@@ -32,7 +40,7 @@ public class music{
 					+ "FOREIGN KEY (musicID) REFERENCES musicTitles(musicID))");
 			create.executeUpdate();
 			
-			//populating musicTitles
+			// populating musicTitles
 			PreparedStatement posted = connection.prepareStatement("INSERT INTO musicTitles(musicID, genre, artist, title, album, releaseDate)"
 					+ "VALUES ('"+8+"', 'Pop', 'Adele', 'Hello', '25', '"+2015+"')");
 			posted.executeUpdate();
@@ -64,7 +72,7 @@ public class music{
 					+ "VALUES ('"+5+"', 'Classical Crossover', 'Yo-Yo Ma', 'N/A', 'Yo-Yo Ma & Friends: Songs Of Joy And Peace', '"+2008+"')");
 			posted.executeUpdate();
 			
-			//populating musicTitles
+			// populating musicTitles
 			posted = connection.prepareStatement("INSERT INTO musicAwards(musicID, award, awardYear)"
 					+ "VALUES ('"+8+"', 'Song of the Year', '"+2016+"')");
 			posted.executeUpdate();
@@ -84,13 +92,13 @@ public class music{
 					+ "VALUES ('"+4+"', 'Best Jazz Instrumental Performance', '"+1992+"')");
 			posted.executeUpdate();
 			
-			//making query statement, resultSet, metaData, numberOfColumns
+			// making query statement, resultSet, metaData, numberOfColumns
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery("SELECT musicID, genre, artist, title, album, releaseDate FROM musicTitles ORDER BY artist");
 			ResultSetMetaData metaData = resultSet.getMetaData();            
 			int numberOfColumns = metaData.getColumnCount();  
 			
-			//printing musicTitle column names
+			// printing musicTitle column names
 			System.out.println("\"musicTitles\" Table Of Music Database:\n"); 
 			for(int i = 1; i <= numberOfColumns; i++){  
 				System.out.printf("%-8s\t", metaData.getColumnName(i));    
@@ -100,7 +108,7 @@ public class music{
             }            
             System.out.println();
             
-            //printing musicTitle resultSet
+            // printing musicTitle resultSet
             while(resultSet.next()){                
             	for(int i = 1; i <= numberOfColumns; i++){                    
             		System.out.printf("%-8s\t", resultSet.getObject(i));
@@ -110,7 +118,7 @@ public class music{
             resultSet.close();
             statement.close();
             
-            //making query statement, resultSet, metaData, numberOfColumns
+            // making query statement, resultSet, metaData, numberOfColumns
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery("SELECT genre, artist, award, awardYear FROM musicAwards ORDER BY awardYear DESC");
 			metaData = resultSet.getMetaData();            
@@ -126,7 +134,7 @@ public class music{
             }            
             System.out.println();
             
-            //printing musicAwards resultSet
+            // printing musicAwards resultSet
             while(resultSet.next()){                
             	for(int i = 1; i <= numberOfColumns; i++){                    
             		System.out.printf("%-8s\t", resultSet.getObject(i));
@@ -136,14 +144,14 @@ public class music{
             resultSet.close();
             statement.close();
             
-            //querying of musicTitle and musicAwards tables for Artist Awards
+            // querying of musicTitle and musicAwards tables for Artist Awards
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery("SELECT genre, artist, award, awardYear FROM musicAwards "
 					+ "INNER JOIN musicTitle ON musicAwards.musicID=musicTitle.musicID ORDER BY awardYear DESC");
 			metaData = resultSet.getMetaData();            
 			numberOfColumns = metaData.getColumnCount();  
 			
-			//printing musicAwards joined with musicTitle column names
+			// printing musicAwards joined with musicTitle column names
 			System.out.println("Musical Artists Who Have Received Awards:\n");
 			for(int i = 1; i <= numberOfColumns; i++){                
 				System.out.printf("%-8s\t", metaData.getColumnName(i));            
@@ -153,7 +161,7 @@ public class music{
             }            
             System.out.println();
             
-            //printing joined resultSet
+            // printing joined resultSet
             while(resultSet.next()){                
             	for(int i = 1; i <= numberOfColumns; i++){                    
             		System.out.printf("%-8s\t", resultSet.getObject(i));
@@ -163,13 +171,13 @@ public class music{
             resultSet.close();
             statement.close();
             
-            //making query statement, resultSet, metaData, numberOfColumns for Rock music
+            // making query statement, resultSet, metaData, numberOfColumns for Rock music
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery("SELECT genre FROM musicTitle WHERE genre=\"Rock\" ORDER BY artist");
 			metaData = resultSet.getMetaData();            
 			numberOfColumns = metaData.getColumnCount();  
 			
-			//printing musicTitle column names
+			// printing musicTitle column names
 			System.out.println("Musical Listings Where The Genre Is \"Rock\":\n"); 
 			for(int i = 1; i <= numberOfColumns; i++){                
 				System.out.printf("%-8s\t", metaData.getColumnName(i));            
@@ -179,7 +187,7 @@ public class music{
             }            
             System.out.println();
             
-            //printing resultSet
+            // printing resultSet
             while(resultSet.next()){                
             	for(int i = 1; i <= numberOfColumns; i++){                    
             		System.out.printf("%-8s\t", resultSet.getObject(i));
@@ -191,7 +199,7 @@ public class music{
 			sqlException.printStackTrace();
 		}
 		finally {   
-			//closing all
+			// closing all
 			try {                
 				resultSet.close();                
 				statement.close();                
@@ -203,7 +211,3 @@ public class music{
 		}
 	}
 }
-
-
-
-
